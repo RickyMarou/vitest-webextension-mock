@@ -1,3 +1,6 @@
+# vitest-webextension-mock
+![Code coverage](./public/badge.svg)
+
 # TODO
 
 - [ ] Make extension URL configurable so consumers can control the path returned by `browser.runtime.getURL()`
