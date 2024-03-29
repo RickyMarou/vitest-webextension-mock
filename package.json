@@ -1,8 +1,21 @@
 {
   "name": "vitest-webextension-mock",
+  "type": "module",
   "version": "0.0.4",
   "description": "Mock webextension APIs with vitest functions",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --dts --minify --format cjs,esm --out-dir dist",
     "dev": "npm run build -- --watch",
@@ -17,6 +30,12 @@
   ],
   "author": "Marwan Zibaoui",
   "license": "MIT",
+  "homepage": "https://github.com/RickyMarou/vitest-webextension-mock#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickyMarou/vitest-webextension-mock.git"
+  },
+  "bugs": "https://github.com/RickyMarou/vitest-webextension-mock/issues",
   "peerDependencies": {
     "vitest": "*"
   },
