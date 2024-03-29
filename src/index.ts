@@ -1,6 +1,8 @@
 import { vi } from "vitest";
+import { action } from "./action";
 
 const browser = {
+  action,
   commands: {
     getAll: vi.fn(),
   },
