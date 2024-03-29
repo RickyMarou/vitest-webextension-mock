@@ -1,0 +1,16 @@
+{
+  "name": "vitest-webextension-mock",
+  "version": "0.0.1",
+  "description": "Mock webextension APIs with vitest functions",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "mock",
+    "vitest",
+    "webextension"
+  ],
+  "author": "Marwan Zibaoui",
+  "license": "MIT"
+}
