@@ -19,7 +19,7 @@
   "scripts": {
     "build": "tsup src/index.ts --dts --minify --format cjs,esm --out-dir dist",
     "dev": "npm run build -- --watch",
-    "test": "vitest",
+    "test": "vitest run --coverage",
     "release": "bumpp && npm publish",
     "lint": "prettier --check . && eslint . --ext .ts"
   },
@@ -42,6 +42,7 @@
   "devDependencies": {
     "@types/node": "^20.11.30",
     "@types/webextension-polyfill": "^0.10.7",
+    "@vitest/coverage-v8": "^1.4.0",
     "bumpp": "^9.4.0",
     "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
