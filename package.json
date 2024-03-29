@@ -1,6 +1,6 @@
 {
   "name": "vitest-webextension-mock",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Mock webextension APIs with vitest functions",
   "main": "dist/index.js",
   "scripts": {
