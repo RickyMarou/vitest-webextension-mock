@@ -1,5 +1,7 @@
 # vitest-webextension-mock
-![Code coverage](./public/badge.svg)
+![npm version](./public/npm-badge.svg)
+![Code coverage](./public/codecov-badge.svg)
+
 
 # TODO
 

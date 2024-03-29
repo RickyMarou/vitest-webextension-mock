@@ -17,8 +17,28 @@ const generateCodeCovBadge = () => {
       color: "brightgreen",
     });
 
-    writeFileSync("public/badge.svg", svg);
+    writeFileSync("public/codecov-badge.svg", svg);
+  });
+};
+
+const generateNpmVersionBadge = () => {
+  readFile("package.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    const { version } = JSON.parse(data);
+
+    const svg = makeBadge({
+      label: "npm",
+      message: version,
+      color: "blue",
+    });
+
+    writeFileSync("public/npm-badge.svg", svg);
   });
 };
 
 generateCodeCovBadge();
+generateNpmVersionBadge();
