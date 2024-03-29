@@ -4,7 +4,10 @@
   "description": "Mock webextension APIs with vitest functions",
   "main": "dist/index.js",
   "scripts": {
-    "test": "test"
+    "build": "tsup src/index.ts --dts --minify --format cjs,esm --out-dir dist",
+    "test": "vitest",
+    "release": "bumpp && npm publish",
+    "lint": "prettier --check . && eslint . --ext .ts"
   },
   "keywords": [
     "mock",
@@ -12,5 +15,18 @@
     "webextension"
   ],
   "author": "Marwan Zibaoui",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "vitest": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/webextension-polyfill": "^0.10.7",
+    "bumpp": "^9.4.0",
+    "jsdom": "^24.0.0",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
+  }
 }
