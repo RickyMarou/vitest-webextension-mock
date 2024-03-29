@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup src/index.ts --dts --minify --format cjs,esm --out-dir dist",
+    "dev": "npm run build -- --watch",
     "test": "vitest",
     "release": "bumpp && npm publish",
     "lint": "prettier --check . && eslint . --ext .ts"
