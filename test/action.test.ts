@@ -326,5 +326,18 @@ describe("browser.action", () => {
         browser.action.setBadgeTextColor({ windowId: 1, color: "hotpink" })
       ).rejects.toThrow();
     });
+
+    test("does not return anything if one of windowId or tabId is provided", async () => {
+      expect(vi.isMockFunction(browser.action.setBadgeTextColor)).toBe(true);
+      expect(
+        browser.action.setBadgeTextColor({ windowId: 1, color: [0, 0, 0, 0] })
+      ).resolves.toBeUndefined();
+      expect(
+        browser.action.setBadgeTextColor({ tabId: 1, color: [0, 0, 0, 0] })
+      ).resolves.toBeUndefined();
+      expect(
+        browser.action.setBadgeTextColor({ color: [0, 0, 0, 0] })
+      ).resolves.toBeUndefined();
+    });
   });
 });
