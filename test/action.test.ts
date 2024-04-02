@@ -281,4 +281,50 @@ describe("browser.action", () => {
       });
     });
   });
+
+  describe("isEnabled()", () => {
+    test("throws if both windowId an tabId are provided", async () => {
+      expect(vi.isMockFunction(browser.action.isEnabled)).toBe(true);
+      expect(
+        browser.action.isEnabled({ windowId: 1, tabId: 1 })
+      ).rejects.toThrow();
+    });
+
+    test("throws if context.manifest is not v3", async () => {
+      context.manifest = "v2";
+      expect(browser.action.isEnabled({ windowId: 1 })).rejects.toThrow();
+    });
+
+    test("returns whether the action is enabled", async () => {
+      expect(browser.action.isEnabled({ windowId: 1 })).resolves.toBe(true);
+      expect(browser.action.isEnabled({ tabId: 1 })).resolves.toBe(true);
+      expect(browser.action.isEnabled({})).resolves.toBe(true);
+    });
+  });
+
+  describe("openPopup()", () => {
+    test("is defined", () => {
+      expect(vi.isMockFunction(browser.action.openPopup)).toBe(true);
+    });
+  });
+
+  describe("setBadgeTextColor()", () => {
+    test("throws if both windowId an tabId are provided", async () => {
+      expect(vi.isMockFunction(browser.action.setBadgeTextColor)).toBe(true);
+      expect(
+        browser.action.setBadgeTextColor({
+          windowId: 1,
+          tabId: 1,
+          color: "hotpink",
+        })
+      ).rejects.toThrow();
+    });
+
+    test("throws if context.manifest is not v3", async () => {
+      context.manifest = "v2";
+      expect(
+        browser.action.setBadgeTextColor({ windowId: 1, color: "hotpink" })
+      ).rejects.toThrow();
+    });
+  });
 });

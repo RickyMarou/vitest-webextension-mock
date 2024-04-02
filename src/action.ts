@@ -100,6 +100,24 @@ const getUserSettings: typeof browserAction.getUserSettings = vi.fn(
   }
 );
 
+const isEnabled: typeof browserAction.isEnabled = vi.fn(async (details) => {
+  checkManifestV3();
+  checkWindowIdAndTabId(details);
+  return Promise.resolve(true);
+});
+
+const openPopup: typeof browserAction.openPopup = vi.fn(async () => {
+  return Promise.resolve();
+});
+
+const setBadgeTextColor: typeof browserAction.setBadgeTextColor = vi.fn(
+  async (details) => {
+    checkManifestV3();
+    checkWindowIdAndTabId(details);
+    return Promise.resolve();
+  }
+);
+
 export const action: typeof browserAction = {
   disable,
   enable,
@@ -109,12 +127,12 @@ export const action: typeof browserAction = {
   getPopup,
   getTitle,
   getUserSettings,
-  isEnabled: vi.fn(),
+  isEnabled,
   onClicked: createEventInterface(),
-  openPopup: vi.fn(),
+  openPopup,
   setBadgeBackgroundColor,
   setBadgeText,
-  setBadgeTextColor: vi.fn(),
+  setBadgeTextColor,
   setIcon,
   setIconAnimation: vi.fn(),
   setPopup,
