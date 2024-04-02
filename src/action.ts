@@ -8,7 +8,23 @@ const getDetails = (details: { tabId?: number; windowId?: number }, cb) => {
 };
 
 export const action = {
-  setTitle: vi.fn(),
+  setTitle: vi.fn(
+    async (details: {
+      tabId?: number;
+      windowId?: number;
+      title: string;
+    }): Promise<undefined> => {
+      if (details.windowId && details.tabId) {
+        return Promise.reject(
+          new Error(
+            "Cannot set title when both windowId and tabId are supplied"
+          )
+        );
+      }
+
+      return;
+    }
+  ),
   getTitle: vi.fn(
     async (details: { tabId?: number; windowId?: number }): Promise<string> => {
       if (details.windowId && details.tabId) {

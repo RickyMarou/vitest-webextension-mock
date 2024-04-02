@@ -24,4 +24,23 @@ describe("browser.action", () => {
       expect(browser.action.getTitle({})).resolves.toBe("mocked title");
     });
   });
+
+  describe("setTitle()", () => {
+    test("throws if both windowId an tabId are provided", async () => {
+      expect(vi.isMockFunction(browser.action.setTitle)).toBe(true);
+      expect(
+        browser.action.setTitle({ windowId: 1, tabId: 1, title: "title" })
+      ).rejects.toThrow();
+    });
+
+    test("does not return anything if one of windowId or tabId is provided", async () => {
+      expect(vi.isMockFunction(browser.action.setTitle)).toBe(true);
+      expect(
+        browser.action.setTitle({ windowId: 1, title: "title" })
+      ).resolves.toBeUndefined();
+      expect(
+        browser.action.setTitle({ tabId: 1, title: "title" })
+      ).resolves.toBeUndefined();
+    });
+  });
 });
