@@ -1,6 +1,7 @@
 import { vi } from "vitest";
 import { context } from "./index";
 import { browserAction } from "webextension-polyfill";
+import { createEventInterface } from "./event";
 
 const checkWindowIdAndTabId = (details: {
   tabId?: number;
@@ -84,19 +85,38 @@ const getBadgeBackgroundColor: typeof browserAction.getBadgeBackgroundColor =
 const enable: typeof browserAction.enable = vi.fn();
 const disable: typeof browserAction.disable = vi.fn();
 
+const getBadgeTextColor: typeof browserAction.getBadgeTextColor = vi.fn(
+  async (details) => {
+    checkManifestV3();
+    checkWindowIdAndTabId(details);
+    return Promise.resolve([0, 0, 0, 0]);
+  }
+);
+
+const getUserSettings: typeof browserAction.getUserSettings = vi.fn(
+  async () => {
+    checkManifestV3();
+    return Promise.resolve({ isOnToolbar: false });
+  }
+);
+
 export const action: typeof browserAction = {
-  setTitle,
-  getTitle,
-  setIcon,
-  setPopup,
-  getPopup,
-  setBadgeText,
-  getBadgeText,
-  setBadgeBackgroundColor,
-  getBadgeBackgroundColor,
-  enable,
   disable,
-  onClicked: {
-    addListener: vi.fn(),
-  },
+  enable,
+  getBadgeBackgroundColor,
+  getBadgeText,
+  getBadgeTextColor,
+  getPopup,
+  getTitle,
+  getUserSettings,
+  isEnabled: vi.fn(),
+  onClicked: createEventInterface(),
+  openPopup: vi.fn(),
+  setBadgeBackgroundColor,
+  setBadgeText,
+  setBadgeTextColor: vi.fn(),
+  setIcon,
+  setIconAnimation: vi.fn(),
+  setPopup,
+  setTitle,
 };

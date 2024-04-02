@@ -1,11 +1,7 @@
-import { describe, expect, test, vi, afterEach } from "vitest";
-import { context, resetContext } from "../src/index";
+import { describe, expect, test, vi } from "vitest";
+import { context } from "../src/index";
 
 describe("browser.action", () => {
-  afterEach(() => {
-    resetContext();
-  });
-
   describe("getTitle()", () => {
     test("throws if both windowId an tabId are provided", async () => {
       expect(vi.isMockFunction(browser.action.getTitle)).toBe(true);
@@ -240,6 +236,49 @@ describe("browser.action", () => {
   describe("disable()", () => {
     test("is defined", () => {
       expect(vi.isMockFunction(browser.action.disable)).toBe(true);
+    });
+  });
+
+  describe("getBadgeTextColor()", () => {
+    test("throws if both windowId an tabId are provided", async () => {
+      expect(vi.isMockFunction(browser.action.getBadgeTextColor)).toBe(true);
+      expect(
+        browser.action.getBadgeTextColor({ windowId: 1, tabId: 1 })
+      ).rejects.toThrow();
+    });
+
+    test("throws if context.manifest is not v3", async () => {
+      context.manifest = "v2";
+      expect(
+        browser.action.getBadgeTextColor({ windowId: 1 })
+      ).rejects.toThrow();
+    });
+
+    test("returns a badge text color", async () => {
+      expect(vi.isMockFunction(browser.action.getBadgeTextColor)).toBe(true);
+      expect(
+        browser.action.getBadgeTextColor({ windowId: 1 })
+      ).resolves.toEqual([0, 0, 0, 0]);
+      expect(browser.action.getBadgeTextColor({ tabId: 1 })).resolves.toEqual([
+        0, 0, 0, 0,
+      ]);
+
+      expect(browser.action.getBadgeTextColor({})).resolves.toEqual([
+        0, 0, 0, 0,
+      ]);
+    });
+  });
+
+  describe("getUserSettings()", () => {
+    test("throws if context.manifest is not v3", async () => {
+      context.manifest = "v2";
+      expect(browser.action.getUserSettings()).rejects.toThrow();
+    });
+
+    test("returns user settings", async () => {
+      expect(browser.action.getUserSettings()).resolves.toEqual({
+        isOnToolbar: false,
+      });
     });
   });
 });
